@@ -1,0 +1,35 @@
+<h1>My Bookmarks</h1>
+
+{{#if user}}
+<p>Welcome, {{user.firstName}} {{user.lastName}}!</p>
+<form action='/bookmarks/add' method="POST">
+    <input type="text" name="title" placeholder="Bookmark Title" />
+    <input type="text" name="url" placeholder="URL" />
+    <button type="submit">Add New</button>
+</form>
+{{else}}
+<a href="/user/login">Login</a>
+{{/if}}
+
+<h2>Bookmark List</h2>
+
+<div class="link-wrap">
+    {{#if user}}
+    {{#each bookmarks}}
+    <div class="link">
+        <a href="{{url}}" target="_blank">{{title}}</a>
+
+        <form action="/bookmarks/delete/{{bookmarkId}}" method="POST">
+            <button type="submit">Delete</button>
+        </form>
+
+    </div>
+    {{/each}}
+    {{else}}
+     {{#each bookmarks}}
+    <div class="link">
+        <a href="{{url}}" target="_blank">{{title}}</a>
+    </div>
+    {{/each}}
+    {{/if}}
+</div>
